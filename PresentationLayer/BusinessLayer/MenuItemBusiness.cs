@@ -29,9 +29,9 @@ namespace BusinessLayer
             return false;
         }
 
-        public bool UpdateMenuItem(MenuItem mi)
+        public bool UpdateMenuItem(MenuItem mi,int id)
         {
-            if (this.menuItemRepository.UpdateMenuItem(mi) > 0)
+            if (this.menuItemRepository.UpdateMenuItem(mi,id) > 0)
                 return true;
             return false;
         }

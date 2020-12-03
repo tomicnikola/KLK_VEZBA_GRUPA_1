@@ -61,12 +61,14 @@ namespace PresentationLayer
 
         private void button2_Click(object sender, EventArgs e)
         {
+            string s = listBoxItems.SelectedItem.ToString();
+            var temp = Convert.ToInt32(s.Split('.')[0]);
             DataAccesLayer.Models.MenuItem mi = new DataAccesLayer.Models.MenuItem();
             mi.Title = textBox1.Text;
             mi.Description = textBox2.Text;
             mi.Price = Convert.ToDecimal(textBox3.Text);
 
-            if (this.menuItemBusiness.UpdateMenuItem(mi))
+            if (this.menuItemBusiness.UpdateMenuItem(mi, temp))
             {
                 RefreshData();
                 textBox1.Text = "";

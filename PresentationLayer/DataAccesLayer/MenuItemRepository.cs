@@ -56,13 +56,13 @@ namespace DataAccesLayer
         }
 
 
-        public int UpdateMenuItem(MenuItem mi)
+        public int UpdateMenuItem(MenuItem mi, int id)
         {
             int result;
             using(SqlConnection con = new SqlConnection(Constants.conString))
             {
                 string commandText = string.Format("UPDATE MenuItems SET Title = '{0}' , Description = '{1}', Price = {2}" +
-                    "WHERE Id = {3}", mi.Title, mi.Description, mi.Price, mi.Id);
+                    "WHERE Id = {3}", mi.Title, mi.Description, mi.Price, id);
                 SqlCommand com = new SqlCommand(commandText, con);
 
                 con.Open();

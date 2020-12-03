@@ -13,5 +13,10 @@ namespace DataAccesLayer.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
 
+
+        public override string ToString()
+        {
+            return Id + ". " + Title + "- " + Description + "- " + Price;
+        }
     }
 }
