@@ -45,12 +45,27 @@ namespace DataAccesLayer
             int result;
             using (SqlConnection con = new SqlConnection(Constants.conString))
             {
-                string commandText = "Insert Into MenuItems(Title, Description, Price) VALUE(@Title, @Description, @Price)";
+                string commandText = string.Format("INSERT INTO MenuItems VALUES( '{0}', '{1}', {2})",mi.Title, mi.Description, mi.Price); 
                 SqlCommand com = new SqlCommand(commandText, con);
-                com.Parameters.AddWithValue("@Title", mi.Title);
-                com.Parameters.AddWithValue("@Description", mi.Description);
-                com.Parameters.AddWithValue("@Price", mi.Price);
 
+                con.Open();
+                result = com.ExecuteNonQuery();
+            }
+
+            return result;
+        }
+
+
+        public int UpdateMenuItem(MenuItem mi)
+        {
+            int result;
+            using(SqlConnection con = new SqlConnection(Constants.conString))
+            {
+                string commandText = string.Format("UPDATE MenuItems SET Title = '{0}' , Description = '{1}', Price = {2}" +
+                    "WHERE Id = {3}", mi.Title, mi.Description, mi.Price, mi.Id);
+                SqlCommand com = new SqlCommand(commandText, con);
+
+                con.Open();
                 result = com.ExecuteNonQuery();
             }
 

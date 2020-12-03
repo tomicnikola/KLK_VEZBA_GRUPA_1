@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,72 @@ namespace PresentationLayer
 {
     public partial class Form1 : Form
     {
+        private readonly MenuItemBusiness menuItemBusiness;
+
         public Form1()
         {
+            this.menuItemBusiness = new MenuItemBusiness();
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            List<DataAccesLayer.Models.MenuItem> items = this.menuItemBusiness.GetAllMenuItems();
+            listBoxItems.Items.Clear();
+
+            foreach (DataAccesLayer.Models.MenuItem mi in items)
+                listBoxItems.Items.Add(mi.Id + ". " + mi.Title + " -" + mi.Description + "- " + mi.Price);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DataAccesLayer.Models.MenuItem mi = new DataAccesLayer.Models.MenuItem();
+            mi.Title = textBox1.Text;
+            mi.Description = textBox2.Text;
+            mi.Price = Convert.ToDecimal(textBox3.Text);
+
+            if(this.menuItemBusiness.InsertMenuItem(mi))
+            {
+                RefreshData();
+                textBox1.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Greska");
+            }
+
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DataAccesLayer.Models.MenuItem mi = new DataAccesLayer.Models.MenuItem();
+            mi.Title = textBox1.Text;
+            mi.Description = textBox2.Text;
+            mi.Price = Convert.ToDecimal(textBox3.Text);
+
+            if (this.menuItemBusiness.UpdateMenuItem(mi))
+            {
+                RefreshData();
+                textBox1.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Greska");
+            }
+
+        }
     }
+       
 }

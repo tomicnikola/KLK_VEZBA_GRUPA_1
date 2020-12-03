@@ -14,7 +14,7 @@ namespace BusinessLayer
 
         public MenuItemBusiness()
         {
-            this.menuItemRepository = new MenuItemRepository;
+            this.menuItemRepository = new MenuItemRepository();
         }
 
         public List<MenuItem> GetAllMenuItems()
@@ -25,6 +25,13 @@ namespace BusinessLayer
         public bool InsertMenuItem(MenuItem mi)
         {
             if (this.menuItemRepository.InsertMenuItem(mi) > 0)
+                return true;
+            return false;
+        }
+
+        public bool UpdateMenuItem(MenuItem mi)
+        {
+            if (this.menuItemRepository.UpdateMenuItem(mi) > 0)
                 return true;
             return false;
         }
